@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación de Graduación | Rodrigo Joseph Martinez Mamani</title>
+  <meta name="description" content="Invitación oficial a la graduación de Rodrigo Joseph Martinez Mamani - Ingeniería de Sistemas">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20%22100%22%20%22100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              700: '#152445',
+              800: '#0e1c38',
+              900: '#091224',
+              950: '#050c1a',
+            },
+            gold: {
+              300: '#f6e27a',
+              400: '#e5c158',
+              500: '#d4af37',
+              600: '#aa771c',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-gold-500 selection:text-navy-950 min-h-screen relative overflow-x-hidden">
+
+  <!-- Background decorative glowing lights -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute top-1/3 -right-32 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <!-- Music toggle button (floating) -->
+  <div class="fixed top-4 right-4 z-50">
+    <button id="musicToggleBtn" class="flex items-center gap-2 px-3 py-2 rounded-full bg-navy-900/80 backdrop-blur-md border border-gold-500/30 text-gold-300 text-xs shadow-lg hover:border-gold-400 hover:text-gold-200 transition-all duration-300 group">
+      <i data-lucide="music" class="w-4 h-4 group-hover:rotate-12 transition-transform"></i>
+      <span id="musicStatusText" class="hidden sm:inline">Música</span>
+    </button>
+    <audio id="bgMusic" loop preload="none">
+      <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=cinematic-time-lapse-115672.mp3" type="audio/mp3">
+    </audio>
+  </div>
+
+  <main class="relative z-10 max-w-2xl mx-auto px-4 py-8 sm:py-14 flex flex-col gap-10">
+
+    <!-- HERO SECTION -->
+    <header class="text-center relative pt-4 flex flex-col items-center">
+      
+      <!-- Top Laurels & Cap Icon -->
+      <div class="inline-flex items-center justify-center p-3 mb-4 rounded-full bg-gradient-to-b from-gold-500/20 to-transparent border border-gold-500/40 shadow-[0_0_25px_rgba(212,175,55,0.25)] animate-float">
+        <i data-lucide="graduation-cap" class="w-9 h-9 text-gold-400"></i>
+      </div>
+
+      <!-- Supertitle -->
+      <div class="flex items-center gap-3 justify-center mb-2">
+        <span class="h-[1px] w-8 sm:w-16 bg-gradient-to-r from-transparent to-gold-400"></span>
+        <span class="text-gold-400 uppercase tracking-[0.3em] text-xs sm:text-sm font-semibold">
+          Invitación de Honor
+        </span>
+        <span class="h-[1px] w-8 sm:w-16 bg-gradient-to-l from-transparent to-gold-400"></span>
+      </div>
+
+      <!-- Invitation Phrase -->
+      <p class="text-slate-300 text-sm sm:text-base italic font-serif max-w-md mx-auto mb-4">
+        Con gran alegría y gratitud por alcanzar esta importante meta académica, tengo el agrado de invitarte a mi graduación:
+      </p>
+
+      <!-- Graduate Name -->
+      <h1 class="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-white mb-3 text-glow">
+        Rodrigo Joseph <br>
+        <span class="text-gold-gradient font-black">Martinez Mamani</span>
+      </h1>
+
+      <!-- Degree / Career -->
+      <div class="inline-block mt-2 px-5 py-2 rounded-full bg-navy-900/90 border border-gold-500/40 shadow-inner">
+        <p class="text-gold-300 font-medium tracking-wider uppercase text-xs sm:text-sm flex items-center gap-2">
+          <i data-lucide="binary" class="w-4 h-4 text-gold-400"></i>
+          Ingeniería de Sistemas
+        </p>
+      </div>
+    </header>
+
+    <!-- COUNTDOWN SECTION -->
+    <section class="luxury-card p-6 text-center">
+      <div class="flex items-center justify-center gap-2 mb-3 text-gold-400 text-xs sm:text-sm tracking-widest uppercase font-semibold">
+        <i data-lucide="clock" class="w-4 h-4"></i>
+        <span>Cuenta regresiva para el gran día</span>
+      </div>
+
+      <div class="grid grid-cols-4 gap-2 sm:gap-4 max-w-md mx-auto my-2" id="countdownContainer">
+        <div class="countdown-box">
+          <span id="days" class="countdown-num">--</span>
+          <span class="countdown-label">Días</span>
+        </div>
+        <div class="countdown-box">
+          <span id="hours" class="countdown-num">--</span>
+          <span class="countdown-label">Horas</span>
+        </div>
+        <div class="countdown-box">
+          <span id="minutes" class="countdown-num">--</span>
+          <span class="countdown-label">Min</span>
+        </div>
+        <div class="countdown-box">
+          <span id="seconds" class="countdown-num">--</span>
+          <span class="countdown-label">Seg</span>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-400 mt-3 font-light">
+        29 de Noviembre de 2026
+      </p>
+    </section>
+
+    <!-- EVENT DETAILS -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      
+      <!-- Date & Time Card -->
+      <div class="luxury-card p-6 flex flex-col items-center text-center justify-between">
+        <div class="w-12 h-12 rounded-full bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 mb-3">
+          <i data-lucide="calendar" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h3 class="font-serif text-lg font-bold text-white mb-1">Fecha y Horario</h3>
+          <p class="text-gold-300 font-semibold text-base mb-1">Domingo, 29 de Noviembre</p>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-300 border border-amber-500/30">
+            <i data-lucide="info" class="w-3.5 h-3.5"></i>
+            Horario por confirmar
+          </span>
+          <p class="text-slate-400 text-xs mt-2">
+            Te notificaremos la hora exacta en cuanto se oficialice.
+          </p>
+        </div>
+        <button id="btnAddToCalendar" class="mt-4 text-xs font-semibold text-gold-400 hover:text-gold-300 underline flex items-center gap-1">
+          <i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i>
+          Agendar en Google Calendar
+        </button>
+      </div>
+
+      <!-- Location Card -->
+      <div class="luxury-card p-6 flex flex-col items-center text-center justify-between">
+        <div class="w-12 h-12 rounded-full bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 mb-3">
+          <i data-lucide="map-pin" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h3 class="font-serif text-lg font-bold text-white mb-1">Lugar del Evento</h3>
+          <p class="text-gold-300 font-semibold text-sm mb-1">Universidad Adventista de Bolivia (UAB)</p>
+          <p class="text-slate-300 text-xs">Vinto, Cochabamba - Bolivia</p>
+          <p class="text-slate-400 text-xs mt-2">Auditorio Principal</p>
+        </div>
+        <a 
+          href="https://www.google.com/maps/search/?api=1&query=Universidad+Adventista+de+Bolivia+Vinto+Cochabamba" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-navy-800 hover:bg-navy-700 text-gold-400 text-xs font-semibold border border-gold-500/30 transition-all hover:scale-105"
+        >
+          <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+          Ver en Google Maps
+        </a>
+      </div>
+
+      <!-- Dress Code -->
+      <div class="luxury-card p-5 md:col-span-2 flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
+        <div class="w-10 h-10 rounded-full bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 shrink-0">
+          <i data-lucide="sparkles" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h4 class="font-serif font-bold text-sm text-gold-300 uppercase tracking-wider">Código de Vestimenta</h4>
+          <p class="text-slate-300 text-xs sm:text-sm">Formal / Elegante. Tu presencia engalana este momento tan especial.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP FORM SECTION -->
+    <section id="rsvp" class="luxury-card p-6 sm:p-8 relative">
+      <div class="text-center mb-6">
+        <span class="text-gold-400 uppercase tracking-widest text-xs font-semibold">Confirmación de Asistencia</span>
+        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-white mt-1">¿Nos acompañas?</h2>
+        <p class="text-slate-400 text-xs sm:text-sm mt-1 max-w-sm mx-auto">
+          Por favor confirma tu presencia para reservar tu lugar en esta celebración.
+        </p>
+      </div>
+
+      <!-- Notice for Google Sheets configuration -->
+      <div id="sheetsNotice" class="hidden mb-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs">
+        <div class="flex items-start gap-2">
+          <i data-lucide="alert-circle" class="w-4 h-4 shrink-0 mt-0.5 text-amber-400"></i>
+          <div>
+            <p class="font-semibold text-amber-300 mb-0.5">Modo de prueba local</p>
+            <p>Aún no has pegado la URL de tu Google Apps Script. El formulario simulará el guardado. Sigue las instrucciones para conectarlo a tu Google Sheets en 2 minutos.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- The Form -->
+      <form id="rsvpForm" class="flex flex-col gap-4">
+        
+        <!-- Nombre completo -->
+        <div>
+          <label for="fullName" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+            Nombre y Apellido <span class="text-gold-400">*</span>
+          </label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i data-lucide="user" class="w-4 h-4"></i>
+            </span>
+            <input 
+              type="text" 
+              id="fullName" 
+              name="fullName" 
+              required 
+              placeholder="Ej. Carlos Mendoza" 
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-navy-900/90 border border-slate-700 focus:border-gold-400 focus:ring-1 focus:ring-gold-400 text-white placeholder-slate-500 text-sm outline-none transition-all"
+            >
+          </div>
+        </div>
+
+        <!-- Celular / WhatsApp -->
+        <div>
+          <label for="phoneNumber" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+            Número de Celular (WhatsApp) <span class="text-gold-400">*</span>
+          </label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i data-lucide="phone" class="w-4 h-4"></i>
+            </span>
+            <input 
+              type="tel" 
+              id="phoneNumber" 
+              name="phoneNumber" 
+              required 
+              placeholder="Ej. +591 70000000" 
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-navy-900/90 border border-slate-700 focus:border-gold-400 focus:ring-1 focus:ring-gold-400 text-white placeholder-slate-500 text-sm outline-none transition-all"
+            >
+          </div>
+          <p class="text-[11px] text-slate-400 mt-1">Te contactaremos por aquí para confirmarte la hora exacta.</p>
+        </div>
+
+        <!-- ¿Asistirás? (Radio choices) -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+            ¿Confirmas tu asistencia? <span class="text-gold-400">*</span>
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="attendance-option relative flex items-center gap-3 p-3 rounded-xl bg-navy-900/80 border border-slate-700 cursor-pointer hover:border-gold-500/50 transition-all">
+              <input type="radio" name="attendance" value="Si, asistiré con gusto" required class="accent-gold-500 w-4 h-4" checked>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                <span class="text-xs sm:text-sm font-medium text-slate-200">¡Sí, asistiré con gusto!</span>
+              </div>
+            </label>
+
+            <label class="attendance-option relative flex items-center gap-3 p-3 rounded-xl bg-navy-900/80 border border-slate-700 cursor-pointer hover:border-gold-500/50 transition-all">
+              <input type="radio" name="attendance" value="No podré asistir" required class="accent-gold-500 w-4 h-4">
+              <div class="flex items-center gap-2">
+                <i data-lucide="x-circle" class="w-4 h-4 text-rose-400"></i>
+                <span class="text-xs sm:text-sm font-medium text-slate-200">Lamentablemente no podré</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Acompañantes -->
+        <div id="guestsWrapper">
+          <label for="guestsCount" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+            ¿Cuántas personas asistirán en total contigo?
+          </label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i data-lucide="users" class="w-4 h-4"></i>
+            </span>
+            <select 
+              id="guestsCount" 
+              name="guestsCount" 
+              class="w-full pl-10 pr-8 py-2.5 rounded-xl bg-navy-900/90 border border-slate-700 focus:border-gold-400 focus:ring-1 focus:ring-gold-400 text-white text-sm outline-none transition-all cursor-pointer"
+            >
+              <option value="1 (Solo yo)">Solo yo (1 persona)</option>
+              <option value="2 (Yo + 1 acompañante)">Yo + 1 acompañante (2 personas)</option>
+              <option value="3 (Yo + 2 acompañantes)">Yo + 2 acompañantes (3 personas)</option>
+              <option value="4 (Yo + 3 acompañantes)">Yo + 3 acompañantes (4 personas)</option>
+              <option value="Más de 4 (Familia)">Más de 4 personas (Grupo familiar)</option>
+            </select>
+            <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
+              <i data-lucide="chevron-down" class="w-4 h-4"></i>
+            </span>
+          </div>
+        </div>
+
+        <!-- Mensaje / Felicitaciones (Opcional) -->
+        <div>
+          <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+            Mensaje o dedicatoria para Rodrigo <span class="text-slate-500 font-normal lowercase">(opcional)</span>
+          </label>
+          <div class="relative">
+            <textarea 
+              id="message" 
+              name="message" 
+              rows="3" 
+              placeholder="Escribe aquí unas palabras o felicitaciones..."
+              class="w-full px-4 py-2.5 rounded-xl bg-navy-900/90 border border-slate-700 focus:border-gold-400 focus:ring-1 focus:ring-gold-400 text-white placeholder-slate-500 text-sm outline-none transition-all resize-none"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          id="submitBtn" 
+          class="w-full mt-2 py-3.5 px-6 rounded-xl bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600 hover:from-gold-500 hover:to-gold-400 text-navy-950 font-bold uppercase tracking-wider text-xs sm:text-sm shadow-[0_0_20px_rgba(212,175,55,0.35)] transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group"
+        >
+          <span id="btnText">Confirmar Asistencia</span>
+          <i data-lucide="send" id="btnIcon" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+          <span id="btnSpinner" class="hidden animate-spin">
+            <i data-lucide="loader-2" class="w-4 h-4"></i>
+          </span>
+        </button>
+
+      </form>
+
+      <!-- Success Card (hidden by default) -->
+      <div id="successCard" class="hidden text-center py-8">
+        <div class="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-400 flex items-center justify-center mx-auto mb-4 animate-bounce">
+          <i data-lucide="party-popper" class="w-8 h-8"></i>
+        </div>
+        <h3 class="font-serif text-2xl font-bold text-white mb-2">¡Muchas Gracias!</h3>
+        <p class="text-slate-300 text-sm max-w-sm mx-auto mb-4" id="successCustomMessage">
+          Tu respuesta ha sido registrada exitosamente. Rodrigo agradece mucho tu cariño y apoyo en este día memorable.
+        </p>
+        <button 
+          id="btnResetForm" 
+          class="inline-flex items-center gap-2 text-xs font-semibold text-gold-400 hover:text-gold-300 underline"
+        >
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+          Enviar otra respuesta o modificar
+        </button>
+      </div>
+
+    </section>
+
+    <!-- SHARE VIA WHATSAPP BUTTON -->
+    <div class="text-center pb-8">
+      <p class="text-slate-400 text-xs mb-3">¿Quieres compartir esta invitación con tu familia o amigos?</p>
+      <button 
+        id="shareWhatsappBtn" 
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-700/30 border border-emerald-500/40 hover:bg-emerald-700/50 text-emerald-300 text-xs font-semibold transition-all hover:scale-105"
+      >
+        <i data-lucide="share-2" class="w-4 h-4"></i>
+        Compartir por WhatsApp
+      </button>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-xs text-slate-500 pb-10 border-t border-slate-800/80 pt-6">
+      <p class="font-serif italic text-gold-400/80 text-sm mb-1">"El futuro pertenece a quienes creen en la belleza de sus sueños."</p>
+      <p class="font-light">Graduación 2026 • Rodrigo Joseph Martinez Mamani</p>
+      <p class="text-[10px] text-slate-600 mt-2">Ingeniería de Sistemas — UAB Vinto, Cochabamba</p>
+    </footer>
+
+  </main>
+
+  <!-- Script Logic -->
+  <script src="script.js"></script>
+</body>
+</html>
